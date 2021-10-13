@@ -1,0 +1,41 @@
+<?php return array(
+    'root' => array(
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'type' => 'library',
+        'install_path' => __DIR__ . '/../../',
+        'aliases' => array(),
+        'reference' => '2208e7a4c20155a79b3769bb4ea7d67065637a77',
+        'name' => '__root__',
+        'dev' => true,
+    ),
+    'versions' => array(
+        '__root__' => array(
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../../',
+            'aliases' => array(),
+            'reference' => '2208e7a4c20155a79b3769bb4ea7d67065637a77',
+            'dev_requirement' => false,
+        ),
+        'composer/ca-bundle' => array(
+            'pretty_version' => '1.2.11',
+            'version' => '1.2.11.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/./ca-bundle',
+            'aliases' => array(),
+            'reference' => '0b072d51c5a9c6f3412f7ea3ab043d6603cb2582',
+            'dev_requirement' => false,
+        ),
+        'mollie/mollie-api-php' => array(
+            'pretty_version' => 'v2.37.1',
+            'version' => '2.37.1.0',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../mollie/mollie-api-php',
+            'aliases' => array(),
+            'reference' => '260adf68db65edd82b6c11f8fa58622ff72b717c',
+            'dev_requirement' => false,
+        ),
+    ),
+);
