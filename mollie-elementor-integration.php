@@ -6,8 +6,8 @@
  * Author: Webtica
  * Author URI: https://webtica.be/
  * Version: 1.0.0
- * Elementor tested up to: 3.4.5
- * Elementor Pro tested up to: 3.4.2
+ * Elementor tested up to: 3.4.4
+ * Elementor Pro tested up to: 3.4.1
  */
 
 // Exit if accessed directly

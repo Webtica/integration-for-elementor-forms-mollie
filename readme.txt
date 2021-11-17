@@ -14,12 +14,6 @@ Easily create payments for Mollie after an elementor form submission.
 Keeping performance in mind this integration doesn't add any additional scripts on page load. 
 Feel free to post any feature requests and possible issues.
 
-What you can expect in the future: 
-* A database where you can see al orders that are made. 
-* Subscriptions.
-* Calculate the payment value via one or more fields in the form.
-* Set payment settings via form fields. 
-
 == Installation ==
 
 = Minimum Requirements =
@@ -56,5 +50,5 @@ Yes, all the other form widget integrations will be available.
 
 == Changelog ==
 
-= 1.0.0 - 2021-10-13 =
+= 1.0.0 - 2021-10-12 =
 * Initial Release
