@@ -1,10 +1,10 @@
 === Integration for Elementor forms - Mollie ===
 Contributors: webtica
-Tags: sendinblue, elementor, elementor pro, forms, integration, marketing, lists, send, blue, automation
+Tags: mollie, elementor, elementor pro, forms, integration, marketing, lists, payments, automation
 Requires at least: 5.0
-Tested up to: 5.8.2
+Tested up to: 5.9
 Requires PHP: 5.4
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,13 @@ Because this integration works with the Form Widget, which is a Elementor Pro un
 Yes, all the other form widget integrations will be available.
 
 == Changelog ==
+
+= 1.2.0 - 2022-01-24 =
+* Added support link
+* Update composer libaries
+* Tested Elementor PRO up to 3.5.2
+* Tested Elementor up to 3.5.4
+* Tested WordPress up to 5.9
 
 = 1.1.0 - 2021-11-17 =
 * Update composer libaries
