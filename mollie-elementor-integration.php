@@ -5,9 +5,9 @@
  * Description: Easily create payments with Mollie after an elementor form submission.
  * Author: Webtica
  * Author URI: https://webtica.be/
- * Version: 1.2.1
- * Elementor tested up to: 3.5.6
- * Elementor Pro tested up to: 3.6.3
+ * Version: 1.2.2
+ * Elementor tested up to: 3.6.5
+ * Elementor Pro tested up to: 3.6.5
  */
 
 // Exit if accessed directly
