@@ -141,6 +141,56 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 			]
 		);
 
+		//Create metadatarepeater
+		$repeater = new \Elementor\Repeater();
+
+		$repeater->add_control(
+			'mollie_custom_metadata_name', [
+				'label' => __( 'Metadata name', 'mollie-elementor-integration' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => __( 'metadata name' , 'mollie-elementor-integration' ),
+				'label_block' => true,
+				'description' => __( 'Enter the metadata name', 'mollie-elementor-integration' ),
+				'dynamic' => [
+					'active' => true,
+				],
+			]
+		);
+
+		$repeater->add_control(
+			'mollie_custom_metadata_value', [
+				'label' => __( 'Metadata value', 'mollie-elementor-integration' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'default' => __( 'metadata value' , 'mollie-elementor-integration' ),
+				'label_block' => true,
+				'description' => __( 'Enter the metadata value', 'mollie-elementor-integration' ),
+				'dynamic' => [
+					'active' => true,
+				],
+			]
+		);
+
+		$widget->add_control(
+			'mollie_custom_metadata_list',
+			[
+				'label' => __( 'Mollie Metadata Mapping', 'mollie-elementor-integration' ),
+				'type' => \Elementor\Controls_Manager::REPEATER,
+				'fields' => $repeater->get_controls(),
+				'separator' => 'before',
+				'default' => [
+					[
+						'mollie_custom_metadata_name' => __( 'clientname', 'mollie-elementor-integration' ),
+						'mollie_custom_metadata_value' => __( 'john', 'mollie-elementor-integration' ),
+					],
+					[
+						'mollie_custom_metadata_name' => __( 'clientlastname', 'mollie-elementor-integration' ),
+						'mollie_custom_metadata_value' => __( 'doe', 'mollie-elementor-integration' ),
+					],
+				],
+				'title_field' => '{{{ mollie_custom_metadata_name }}}',
+			]
+		);
+
 		$widget->end_controls_section();
 
 	}
@@ -159,7 +209,9 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 			$element['mollie_webhook_url'],
 			$element['mollie_payment_amount'],
 			$element['mollie_payment_description'],
-			$element['mollie_payment_currency']
+			$element['mollie_payment_currency'],
+			$element['mollie_custom_metadata_name'],
+			$element['mollie_custom_metadata_value']
 		);
 
 		return $element;
@@ -186,6 +238,16 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 			$fields[ $id ] = $field['value'];
 		}
 
+		// Process custom metadata mapping
+		$metadatasettings = $settings['mollie_custom_metadata_list'];
+		$metadata = array();
+		foreach ($metadatasettings as $metadatasetting) {
+			$metadataname = $metadatasetting['mollie_custom_metadata_name'];
+			$metadatavalue = $metadatasetting['mollie_custom_metadata_value'];
+			$valuetosend = $fields[$metadatavalue];
+			$metadata[$metadataname] = $valuetosend;
+		}
+
 		//Create mollie payment here
 		$mollie = new \Mollie\Api\MollieApiClient();
 		$mollie->setApiKey($settings['mollie_api_key']);
@@ -199,6 +261,7 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 			"description" => $settings['mollie_payment_description'],
 			"redirectUrl" => $settings['mollie_redirect_url'],
 			"webhookUrl"  => $settings['mollie_webhook_url'],
+			"metadata" => $metadata,
 		]);
 		//Redirect
 		$redirect_to = $payment->getCheckoutUrl();
