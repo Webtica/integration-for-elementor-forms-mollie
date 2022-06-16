@@ -4,7 +4,7 @@ Tags: mollie, elementor, elementor pro, forms, integration, marketing, lists, pa
 Requires at least: 5.0
 Tested up to: 6.0.0
 Requires PHP: 5.4
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -49,6 +49,13 @@ Because this integration works with the Form Widget, which is a Elementor Pro un
 Yes, all the other form widget integrations will be available.
 
 == Changelog ==
+
+= 1.3.0 - 2022-06-16 =
+* Add metadata functionallity
+* Add dynamic pricing based on form values
+* Update composer libaries
+* Tested Elementor PRO up to 3.7.2
+* Tested Elementor up to 3.6.6
 
 = 1.2.2 - 2022-05-08 =
 * Update composer libaries

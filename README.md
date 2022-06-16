@@ -42,6 +42,13 @@ Yes, all the other form widget integrations will be available.
 
 ## Changelog
 
+### 1.3.0 - 16-06-2022
+* Add metadata functionallity
+* Add dynamic pricing based on form values
+* Update composer libaries
+* Tested Elementor PRO up to 3.7.2
+* Tested Elementor up to 3.6.6
+
 ### 1.2.2 - 08-05-2022
 * Update composer libaries
 * Tested Elementor PRO up to 3.6.5
