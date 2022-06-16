@@ -95,6 +95,15 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 		);
 
 		$widget->add_control(
+			'mollie_payment_dynamic_pricing_switcher',
+			[
+				'label' => __( 'Dynamic pricing', 'mollie-elementor-integration' ),
+				'type' => \Elementor\Controls_Manager::SWITCHER,
+				'separator' => 'before'
+			]
+		);
+
+		$widget->add_control(
 			'mollie_payment_amount',
 			[
 				'label' => __( 'Payment Amount', 'mollie-elementor-integration' ),
@@ -103,6 +112,26 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 				'label_block' => true,
 				'separator' => 'before',
 				'description' => __( 'Enter the amount the client needs to pay', 'mollie-elementor-integration' ),
+				'condition' => array(
+    				'mollie_payment_dynamic_pricing_switcher!' => 'yes',
+    			),
+				'dynamic' => [
+					'active' => true,
+				],
+			]
+		);
+
+		$widget->add_control(
+			'mollie_payment_dynamic_field_id',
+			[
+				'label' => __( 'Payment Amount', 'mollie-elementor-integration' ),
+				'type' => \Elementor\Controls_Manager::TEXT,
+				'placeholder' => 'pricingvaluefieldid',
+				'separator' => 'before',
+				'description' => __( 'Enter the dynamic pricing field id this will use the value after the pipe symbol - you can find this under the fields advanced tab', 'mollie-elementor-integration' ),
+				'condition' => array(
+    				'mollie_payment_dynamic_pricing_switcher' => 'yes',
+    			),
 				'dynamic' => [
 					'active' => true,
 				],
