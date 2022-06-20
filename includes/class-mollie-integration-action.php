@@ -236,6 +236,8 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 			$element['mollie_api_key'],
 			$element['mollie_redirect_url'],
 			$element['mollie_webhook_url'],
+			$element['mollie_payment_dynamic_pricing_switcher'],
+			$element['mollie_payment_dynamic_field_id'],
 			$element['mollie_payment_amount'],
 			$element['mollie_payment_description'],
 			$element['mollie_payment_currency'],
@@ -280,7 +282,14 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 		//Create mollie payment here
 		$mollie = new \Mollie\Api\MollieApiClient();
 		$mollie->setApiKey($settings['mollie_api_key']);
-		$paymentvalue = number_format((float)$settings['mollie_payment_amount'], 2, '.', '');
+
+		$dynamicprice = $settings['mollie_payment_dynamic_pricing_switcher'];
+
+		if ($dynamicprice == "yes") {
+			$paymentvalue = number_format((float)$fields[$settings['mollie_payment_dynamic_field_id']], 2, '.', '');
+		} else {
+			$paymentvalue = number_format((float)$settings['mollie_payment_amount'], 2, '.', '');
+		}
 
 		$payment = $mollie->payments->create([
 			"amount" => [
