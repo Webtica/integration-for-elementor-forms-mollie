@@ -2,9 +2,9 @@
 Contributors: webtica
 Tags: mollie, elementor, elementor pro, forms, integration, marketing, lists, payments, automation
 Requires at least: 5.0
-Tested up to: 6.0.1
-Requires PHP: 5.4
-Stable tag: 1.3.1
+Tested up to: 6.3.0
+Requires PHP: 7.0
+Stable tag: 1.3.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -19,7 +19,7 @@ Feel free to post any feature requests and possible issues.
 = Minimum Requirements =
 
 * WordPress 5.0 or greater
-* PHP version 5.4 or greater
+* PHP version 7.0 or greater
 * MySQL version 5.0 or greater
 * [Elementor Pro](https://elementor.com) 3 or greater
 
@@ -49,6 +49,19 @@ Because this integration works with the Form Widget, which is a Elementor Pro un
 Yes, all the other form widget integrations will be available.
 
 == Changelog ==
+
+= 1.2.3 - 2023-07-23 =
+* Update composer libaries
+* Change minimum PHP version to 7.0
+* Tested Elementor PRO up to 3.14.1
+* Tested Elementor up to 3.14.1
+* Tested WordPress up to 6.3
+
+= 1.3.2 - 2022-11-05 =
+* Update composer libaries
+* Tested Elementor up to 3.8.0
+* Tested Elementor PRO up to 3.8.0
+* Tested WordPress up to 6.1.0
 
 = 1.3.1 - 2022-07-15 =
 * Update composer libaries

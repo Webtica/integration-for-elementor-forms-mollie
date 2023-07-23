@@ -9,7 +9,7 @@ Feel free to post any feature requests and possible issues.
 ### Minimum Requirements
 
 * WordPress 5.0 or greater
-* PHP version 5.4 or greater
+* PHP version 7.0 or greater
 * MySQL version 5.0 or greater
 * [Elementor Pro](https://elementor.com) 3 or greater
 
@@ -41,6 +41,19 @@ Because this integration works with the Form Widget, which is a Elementor Pro un
 Yes, all the other form widget integrations will be available.
 
 ## Changelog
+
+###  1.3.3 - 23-07-2023 
+* Update composer libaries
+* Change minimum PHP version to 7.0
+* Tested Elementor PRO up to 3.14.1
+* Tested Elementor up to 3.14.1
+* Tested WordPress up to 6.3
+
+### 1.3.2 - 05-11-2022
+* Update composer libaries
+* Tested Elementor up to 3.8.0
+* Tested Elementor PRO up to 3.8.0
+* Tested WordPress up to 6.1.0
 
 ### 1.3.1 - 15-07-2022
 * Update composer libaries
