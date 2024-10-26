@@ -1,6 +1,6 @@
 === Integration for Elementor forms - Mollie ===
 Contributors: webtica
-Tags: mollie, elementor, elementor pro, forms, integration, marketing, lists, payments, automation
+Tags: mollie, elementor, forms, integration, payments
 Requires at least: 5.0
 Tested up to: 6.6.2
 Requires PHP: 7.0
