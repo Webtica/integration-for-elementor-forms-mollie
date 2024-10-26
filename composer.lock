@@ -8,16 +8,16 @@
     "packages": [
         {
             "name": "composer/ca-bundle",
-            "version": "1.5.0",
+            "version": "1.5.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/ca-bundle.git",
-                "reference": "0c5ccfcfea312b5c5a190a21ac5cef93f74baf99"
+                "reference": "48a792895a2b7a6ee65dd5442c299d7b835b6137"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/0c5ccfcfea312b5c5a190a21ac5cef93f74baf99",
-                "reference": "0c5ccfcfea312b5c5a190a21ac5cef93f74baf99",
+                "url": "https://api.github.com/repos/composer/ca-bundle/zipball/48a792895a2b7a6ee65dd5442c299d7b835b6137",
+                "reference": "48a792895a2b7a6ee65dd5442c299d7b835b6137",
                 "shasum": ""
             },
             "require": {
@@ -27,8 +27,8 @@
             },
             "require-dev": {
                 "phpstan/phpstan": "^1.10",
-                "psr/log": "^1.0",
-                "symfony/phpunit-bridge": "^4.2 || ^5",
+                "phpunit/phpunit": "^8 || ^9",
+                "psr/log": "^1.0 || ^2.0 || ^3.0",
                 "symfony/process": "^4.0 || ^5.0 || ^6.0 || ^7.0"
             },
             "type": "library",
@@ -64,7 +64,7 @@
             "support": {
                 "irc": "irc://irc.freenode.org/composer",
                 "issues": "https://github.com/composer/ca-bundle/issues",
-                "source": "https://github.com/composer/ca-bundle/tree/1.5.0"
+                "source": "https://github.com/composer/ca-bundle/tree/1.5.2"
             },
             "funding": [
                 {
@@ -80,20 +80,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2024-03-15T14:00:32+00:00"
+            "time": "2024-09-25T07:49:53+00:00"
         },
         {
             "name": "mollie/mollie-api-php",
-            "version": "v2.66.0",
+            "version": "v2.73.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/mollie/mollie-api-php.git",
-                "reference": "d7d09ac62a565e818bf49d04acb2f0432da758a9"
+                "reference": "0a26175492d4c55bb461e44fe3e63546539b81c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mollie/mollie-api-php/zipball/d7d09ac62a565e818bf49d04acb2f0432da758a9",
-                "reference": "d7d09ac62a565e818bf49d04acb2f0432da758a9",
+                "url": "https://api.github.com/repos/mollie/mollie-api-php/zipball/0a26175492d4c55bb461e44fe3e63546539b81c1",
+                "reference": "0a26175492d4c55bb461e44fe3e63546539b81c1",
                 "shasum": ""
             },
             "require": {
@@ -107,7 +107,7 @@
                 "eloquent/liberator": "^2.0||^3.0",
                 "friendsofphp/php-cs-fixer": "^3.0",
                 "guzzlehttp/guzzle": "^6.3 || ^7.0",
-                "phpstan/phpstan": "^1.4",
+                "phpstan/phpstan": "^1.12",
                 "phpunit/phpunit": "^8.5 || ^9.5"
             },
             "suggest": {
@@ -170,9 +170,9 @@
             ],
             "support": {
                 "issues": "https://github.com/mollie/mollie-api-php/issues",
-                "source": "https://github.com/mollie/mollie-api-php/tree/v2.66.0"
+                "source": "https://github.com/mollie/mollie-api-php/tree/v2.73.0"
             },
-            "time": "2024-03-19T13:33:42+00:00"
+            "time": "2024-09-30T13:16:57+00:00"
         }
     ],
     "packages-dev": [],
