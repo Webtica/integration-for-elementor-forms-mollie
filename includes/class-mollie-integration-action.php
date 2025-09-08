@@ -290,6 +290,11 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 		} else {
 			$paymentvalue = number_format((float)$settings['mollie_payment_amount'], 2, '.', '');
 		}
+		
+		if ($dynamicprice == "yes" && $paymentvalue == "0.00") {
+			$ajax_handler->add_response_data( 'redirect_url', $settings['mollie_redirect_url'] );
+			return;
+		}
 
 		$payment = $mollie->payments->create([
 			"amount" => [

@@ -42,6 +42,13 @@ Yes, all the other form widget integrations will be available.
 
 ## Changelog
 
+###  1.3.7 - 08-09-2025 
+* Automatically skip payment and redirect directly to redirect URL when dynamic pricing is enabled and amount is 0
+* Update composer libaries
+* Tested Elementor PRO up to 3.31.2
+* Tested Elementor up to 3.31.3
+* Tested WordPress up to 6.8.2
+
 ###  1.3.6 - 07-04-2025 
 * Update composer libaries
 * Tested Elementor PRO up to 3.28.2

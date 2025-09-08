@@ -2,11 +2,13 @@
 Contributors: webtica
 Tags: mollie, elementor, forms, integration, payments
 Requires at least: 5.0
-Tested up to: 6.7.2
+Tested up to: 6.8.2
 Requires PHP: 7.0
-Stable tag: 1.3.6
+Stable tag: 1.3.7
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
+
+Easily create payments for Mollie after an Elementor form submission with dynamic pricing support.
 
 == Description ==
 
@@ -49,6 +51,13 @@ Because this integration works with the Form Widget, which is a Elementor Pro un
 Yes, all the other form widget integrations will be available.
 
 == Changelog ==
+
+= 1.3.7 - 2025-09-08 =
+* Automatically skip payment and redirect directly to redirect URL when dynamic pricing is enabled and amount is 0
+* Update composer libaries
+* Tested Elementor PRO up to 3.31.2
+* Tested Elementor up to 3.31.3
+* Tested WordPress up to 6.8.2
 
 = 1.3.6 - 2025-04-07 =
 * Update composer libaries
