@@ -40,6 +40,11 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 	 * @param \Elementor\Widget_Base $widget
 	 */
 	public function register_settings_section( $widget ) {
+		// Check if user has capability to manage options (admin only)
+		if ( ! current_user_can( 'manage_options' ) ) {
+			return;
+		}
+
 		$widget->start_controls_section(
 			'section_mollie-elementor-integration',
 			[
@@ -158,15 +163,40 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 			[
 				'label' => __( 'Payment Currency', 'mollie-elementor-integration' ),
 				'type' => \Elementor\Controls_Manager::SELECT,
-				'default' => 'solid',
+				'default' => 'EUR',
 				'options' => [
-					'EUR'  => __( 'EUR', 'mollie-elementor-integration' ),
-					'GBP' => __( 'GBP', 'mollie-elementor-integration' ),
-					'USD' => __( 'USD', 'mollie-elementor-integration' ),
+					'AED' => __( 'AED - UAE Dirham', 'mollie-elementor-integration' ),
+					'AUD' => __( 'AUD - Australian Dollar', 'mollie-elementor-integration' ),
+					'BGN' => __( 'BGN - Bulgarian Lev', 'mollie-elementor-integration' ),
+					'BRL' => __( 'BRL - Brazilian Real', 'mollie-elementor-integration' ),
+					'CAD' => __( 'CAD - Canadian Dollar', 'mollie-elementor-integration' ),
+					'CHF' => __( 'CHF - Swiss Franc', 'mollie-elementor-integration' ),
+					'CZK' => __( 'CZK - Czech Koruna', 'mollie-elementor-integration' ),
+					'DKK' => __( 'DKK - Danish Krone', 'mollie-elementor-integration' ),
+					'EUR' => __( 'EUR - Euro', 'mollie-elementor-integration' ),
+					'GBP' => __( 'GBP - Pound Sterling', 'mollie-elementor-integration' ),
+					'HKD' => __( 'HKD - Hong Kong Dollar', 'mollie-elementor-integration' ),
+					'HUF' => __( 'HUF - Hungarian Forint', 'mollie-elementor-integration' ),
+					'ILS' => __( 'ILS - Israeli Shekel', 'mollie-elementor-integration' ),
+					'ISK' => __( 'ISK - Icelandic Króna', 'mollie-elementor-integration' ),
+					'JPY' => __( 'JPY - Japanese Yen', 'mollie-elementor-integration' ),
+					'MXN' => __( 'MXN - Mexican Peso', 'mollie-elementor-integration' ),
+					'MYR' => __( 'MYR - Malaysian Ringgit', 'mollie-elementor-integration' ),
+					'NOK' => __( 'NOK - Norwegian Krone', 'mollie-elementor-integration' ),
+					'NZD' => __( 'NZD - New Zealand Dollar', 'mollie-elementor-integration' ),
+					'PHP' => __( 'PHP - Philippine Peso', 'mollie-elementor-integration' ),
+					'PLN' => __( 'PLN - Polish Złoty', 'mollie-elementor-integration' ),
+					'RON' => __( 'RON - Romanian Leu', 'mollie-elementor-integration' ),
+					'SEK' => __( 'SEK - Swedish Krona', 'mollie-elementor-integration' ),
+					'SGD' => __( 'SGD - Singapore Dollar', 'mollie-elementor-integration' ),
+					'THB' => __( 'THB - Thai Baht', 'mollie-elementor-integration' ),
+					'TWD' => __( 'TWD - Taiwan Dollar', 'mollie-elementor-integration' ),
+					'USD' => __( 'USD - US Dollar', 'mollie-elementor-integration' ),
+					'ZAR' => __( 'ZAR - South African Rand', 'mollie-elementor-integration' ),
 				],
 				'label_block' => true,
 				'separator' => 'before',
-				'description' => __( 'Enter the payment currency', 'mollie-elementor-integration' ),
+				'description' => __( 'Select the payment currency (ISO 4217)', 'mollie-elementor-integration' ),
 			]
 		);
 
@@ -269,46 +299,145 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 			$fields[ $id ] = $field['value'];
 		}
 
-		// Process custom metadata mapping
-		$metadatasettings = $settings['mollie_custom_metadata_list'];
-		$metadata = array();
-		foreach ($metadatasettings as $metadatasetting) {
-			$metadataname = $metadatasetting['mollie_custom_metadata_name'];
-			$metadatavalue = $metadatasetting['mollie_custom_metadata_value'];
-			$valuetosend = $fields[$metadatavalue];
-			$metadata[$metadataname] = $valuetosend;
-		}
-
-		//Create mollie payment here
-		$mollie = new \Mollie\Api\MollieApiClient();
-		$mollie->setApiKey($settings['mollie_api_key']);
-
-		$dynamicprice = $settings['mollie_payment_dynamic_pricing_switcher'];
-
-		if ($dynamicprice == "yes") {
-			$paymentvalue = number_format((float)$fields[$settings['mollie_payment_dynamic_field_id']], 2, '.', '');
-		} else {
-			$paymentvalue = number_format((float)$settings['mollie_payment_amount'], 2, '.', '');
-		}
-		
-		if ($dynamicprice == "yes" && $paymentvalue == "0.00") {
-			$ajax_handler->add_response_data( 'redirect_url', $settings['mollie_redirect_url'] );
+		// Validate required settings
+		if ( empty( $settings['mollie_api_key'] ) ) {
+			$ajax_handler->add_error_message( __( 'Mollie API key is missing. Please configure the payment settings.', 'mollie-elementor-integration' ) );
 			return;
 		}
 
-		$payment = $mollie->payments->create([
-			"amount" => [
-				"currency" => $settings['mollie_payment_currency'],
-				"value" => $paymentvalue
-			],
-			"description" => $settings['mollie_payment_description'],
-			"redirectUrl" => $settings['mollie_redirect_url'],
-			"webhookUrl"  => $settings['mollie_webhook_url'],
-			"metadata" => $metadata,
-		]);
-		//Redirect
-		$redirect_to = $payment->getCheckoutUrl();
-		$ajax_handler->add_response_data( 'redirect_url', $redirect_to );
+		// Sanitize and validate API key
+		$api_key = sanitize_text_field( $settings['mollie_api_key'] );
+		if ( ! preg_match( '/^(live|test)_[a-zA-Z0-9]{30,}$/', $api_key ) ) {
+			$ajax_handler->add_error_message( __( 'Invalid Mollie API key format.', 'mollie-elementor-integration' ) );
+			return;
+		}
 
+		// Sanitize and validate redirect URL
+		$redirect_url = esc_url_raw( $settings['mollie_redirect_url'] );
+		if ( empty( $redirect_url ) || ! filter_var( $redirect_url, FILTER_VALIDATE_URL ) ) {
+			$ajax_handler->add_error_message( __( 'Invalid or missing redirect URL.', 'mollie-elementor-integration' ) );
+			return;
+		}
+
+		// Sanitize webhook URL (optional field)
+		$webhook_url = '';
+		if ( ! empty( $settings['mollie_webhook_url'] ) ) {
+			$webhook_url = esc_url_raw( $settings['mollie_webhook_url'] );
+			if ( ! filter_var( $webhook_url, FILTER_VALIDATE_URL ) ) {
+				$ajax_handler->add_error_message( __( 'Invalid webhook URL format.', 'mollie-elementor-integration' ) );
+				return;
+			}
+		}
+
+		// Process custom metadata mapping with sanitization
+		$metadatasettings = isset( $settings['mollie_custom_metadata_list'] ) ? $settings['mollie_custom_metadata_list'] : array();
+		$metadata = array();
+		foreach ( $metadatasettings as $metadatasetting ) {
+			$metadataname = sanitize_key( $metadatasetting['mollie_custom_metadata_name'] );
+			$metadatavalue_key = sanitize_text_field( $metadatasetting['mollie_custom_metadata_value'] );
+
+			// Get the value from form fields and sanitize it
+			$valuetosend = isset( $fields[ $metadatavalue_key ] ) ? sanitize_text_field( $fields[ $metadatavalue_key ] ) : '';
+
+			// Only add non-empty metadata
+			if ( ! empty( $metadataname ) && ! empty( $valuetosend ) ) {
+				$metadata[ $metadataname ] = $valuetosend;
+			}
+		}
+
+		// Sanitize payment settings
+		$dynamicprice = isset( $settings['mollie_payment_dynamic_pricing_switcher'] ) ? $settings['mollie_payment_dynamic_pricing_switcher'] : 'no';
+		$currency = sanitize_text_field( $settings['mollie_payment_currency'] );
+		$description = sanitize_text_field( $settings['mollie_payment_description'] );
+
+		// Validate currency (ISO 4217 currency codes supported by Mollie)
+		$allowed_currencies = array(
+			'AED', 'AUD', 'BGN', 'BRL', 'CAD', 'CHF', 'CZK', 'DKK',
+			'EUR', 'GBP', 'HKD', 'HUF', 'ILS', 'ISK', 'JPY', 'MXN',
+			'MYR', 'NOK', 'NZD', 'PHP', 'PLN', 'RON', 'SEK', 'SGD',
+			'THB', 'TWD', 'USD', 'ZAR'
+		);
+		if ( ! in_array( $currency, $allowed_currencies, true ) ) {
+			$ajax_handler->add_error_message( __( 'Invalid payment currency.', 'mollie-elementor-integration' ) );
+			return;
+		}
+
+		// Calculate and validate payment amount
+		if ( $dynamicprice === 'yes' ) {
+			$dynamic_field_id = sanitize_text_field( $settings['mollie_payment_dynamic_field_id'] );
+			$amount_raw = isset( $fields[ $dynamic_field_id ] ) ? $fields[ $dynamic_field_id ] : 0;
+
+			// Extract numeric value (handle formats like "10.50" or "price|10.50")
+			if ( strpos( $amount_raw, '|' ) !== false ) {
+				$parts = explode( '|', $amount_raw );
+				$amount_raw = end( $parts );
+			}
+
+			$paymentvalue = number_format( (float) filter_var( $amount_raw, FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION ), 2, '.', '' );
+		} else {
+			$paymentvalue = number_format( (float) $settings['mollie_payment_amount'], 2, '.', '' );
+		}
+
+		// If dynamic price is 0, skip payment and redirect
+		if ( $dynamicprice === 'yes' && $paymentvalue === '0.00' ) {
+			$ajax_handler->add_response_data( 'redirect_url', $redirect_url );
+			return;
+		}
+
+		// Validate minimum amount (Mollie requires minimum €0.01)
+		if ( (float) $paymentvalue < 0.01 ) {
+			$ajax_handler->add_error_message( __( 'Payment amount must be at least 0.01.', 'mollie-elementor-integration' ) );
+			return;
+		}
+
+		// Create Mollie payment with error handling
+		try {
+			$mollie = new \Mollie\Api\MollieApiClient();
+			$mollie->setApiKey( $api_key );
+
+			$payment_data = array(
+				'amount' => array(
+					'currency' => $currency,
+					'value' => $paymentvalue
+				),
+				'description' => $description,
+				'redirectUrl' => $redirect_url,
+				'metadata' => $metadata,
+			);
+
+			// Add webhook URL if provided
+			if ( ! empty( $webhook_url ) ) {
+				$payment_data['webhookUrl'] = $webhook_url;
+			}
+
+			$payment = $mollie->payments->create( $payment_data );
+
+			// Get checkout URL and redirect
+			$redirect_to = $payment->getCheckoutUrl();
+			if ( empty( $redirect_to ) ) {
+				throw new \Exception( __( 'Failed to retrieve payment checkout URL.', 'mollie-elementor-integration' ) );
+			}
+
+			$ajax_handler->add_response_data( 'redirect_url', $redirect_to );
+
+		} catch ( \Mollie\Api\Exceptions\ApiException $e ) {
+			// Log the error for debugging
+			error_log( 'Mollie API Error: ' . $e->getMessage() );
+
+			$ajax_handler->add_error_message(
+				sprintf(
+					/* translators: %s: Error message */
+					__( 'Payment processing failed: %s', 'mollie-elementor-integration' ),
+					esc_html( $e->getMessage() )
+				)
+			);
+		} catch ( \Exception $e ) {
+			// Log the error for debugging
+			error_log( 'Mollie Integration Error: ' . $e->getMessage() );
+
+			$ajax_handler->add_error_message(
+				__( 'An unexpected error occurred while processing your payment. Please try again.', 'mollie-elementor-integration' )
+			);
+		}
 	}
 }

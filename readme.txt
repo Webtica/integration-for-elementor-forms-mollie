@@ -4,7 +4,7 @@ Tags: mollie, elementor, forms, integration, payments
 Requires at least: 5.0
 Tested up to: 6.8.2
 Requires PHP: 7.0
-Stable tag: 1.3.7
+Stable tag: 2.0.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,6 +51,26 @@ Because this integration works with the Form Widget, which is a Elementor Pro un
 Yes, all the other form widget integrations will be available.
 
 == Changelog ==
+
+= 2.0.0 - 2025-11-10 =
+* Security: Add comprehensive input sanitization for all form data and settings
+* Security: Add validation for API key format (test/live prefix validation)
+* Security: Add URL validation for redirect and webhook URLs
+* Security: Add capability checks to restrict settings access to administrators only
+* Security: Sanitize metadata values to prevent injection attacks
+* Security: Sanitize dynamic pricing field values with proper numeric filtering
+* Feature: Add support for 25 additional currencies (total 28 ISO 4217 currencies)
+* Feature: Support for AED, AUD, BGN, BRL, CAD, CHF, CZK, DKK, HKD, HUF, ILS, ISK, JPY, MXN, MYR, NOK, NZD, PHP, PLN, RON, SEK, SGD, THB, TWD, ZAR
+* Improvement: Add try-catch error handling for Mollie API calls
+* Improvement: Add user-friendly error messages for payment failures
+* Improvement: Add error logging for debugging purposes
+* Improvement: Add validation for payment currency against allowed values
+* Improvement: Add minimum payment amount validation (€0.01 minimum)
+* Improvement: Add validation for checkout URL existence
+* Improvement: Update Mollie API PHP SDK to v3.6.0 (from v2.79.1)
+* Fix: Better handling of dynamic pricing field formats (with pipe separator)
+* Fix: Improved isset() checks to prevent undefined array key warnings
+* Fix: Currency dropdown default value now properly set to EUR
 
 = 1.3.7 - 2025-09-08 =
 * Automatically skip payment and redirect directly to redirect URL when dynamic pricing is enabled and amount is 0
