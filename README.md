@@ -42,6 +42,29 @@ Yes, all the other form widget integrations will be available.
 
 ## Changelog
 
+###  1.4.0 - 10-11-2025 
+* Security: Add comprehensive input sanitization for all form data and settings
+* Security: Add validation for API key format (test/live prefix validation)
+* Security: Add URL validation for redirect and webhook URLs
+* Security: Add capability checks to restrict settings access to administrators only
+* Security: Sanitize metadata values to prevent injection attacks
+* Security: Sanitize dynamic pricing field values with proper numeric filtering
+* Feature: Add support for 25 additional currencies (total 28 ISO 4217 currencies)
+* Feature: Support for AED, AUD, BGN, BRL, CAD, CHF, CZK, DKK, HKD, HUF, ILS, ISK, JPY, MXN, MYR, NOK, NZD, PHP, PLN, RON, SEK, SGD, THB, TWD, ZAR
+* Improvement: Add try-catch error handling for Mollie API calls
+* Improvement: Add user-friendly error messages for payment failures
+* Improvement: Add error logging for debugging purposes
+* Improvement: Add validation for payment currency against allowed values
+* Improvement: Add minimum payment amount validation (€0.01 minimum)
+* Improvement: Add validation for checkout URL existence
+* Improvement: Update Mollie API PHP SDK to v3.6.0 (from v2.79.1)
+* Fix: Better handling of dynamic pricing field formats (with pipe separator)
+* Fix: Improved isset() checks to prevent undefined array key warnings
+* Fix: Currency dropdown default value now properly set to EUR
+* Tested Elementor PRO up to 3.33.0
+* Tested Elementor up to 3.33.0
+* Tested WordPress up to 6.8.3
+
 ###  1.3.7 - 08-09-2025 
 * Automatically skip payment and redirect directly to redirect URL when dynamic pricing is enabled and amount is 0
 * Update composer libaries

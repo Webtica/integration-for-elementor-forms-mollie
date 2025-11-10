@@ -2,9 +2,9 @@
 Contributors: webtica
 Tags: mollie, elementor, forms, integration, payments
 Requires at least: 5.0
-Tested up to: 6.8.2
+Tested up to: 6.8.3
 Requires PHP: 7.0
-Stable tag: 2.0.0
+Stable tag: 1.4.0
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -52,7 +52,7 @@ Yes, all the other form widget integrations will be available.
 
 == Changelog ==
 
-= 2.0.0 - 2025-11-10 =
+= 1.4.0 - 2025-11-10 =
 * Security: Add comprehensive input sanitization for all form data and settings
 * Security: Add validation for API key format (test/live prefix validation)
 * Security: Add URL validation for redirect and webhook URLs
@@ -71,6 +71,9 @@ Yes, all the other form widget integrations will be available.
 * Fix: Better handling of dynamic pricing field formats (with pipe separator)
 * Fix: Improved isset() checks to prevent undefined array key warnings
 * Fix: Currency dropdown default value now properly set to EUR
+* Tested Elementor PRO up to 3.33.0
+* Tested Elementor up to 3.33.0
+* Tested WordPress up to 6.8.3
 
 = 1.3.7 - 2025-09-08 =
 * Automatically skip payment and redirect directly to redirect URL when dynamic pricing is enabled and amount is 0
