@@ -42,6 +42,10 @@ Yes, all the other form widget integrations will be available.
 
 ## Changelog
 
+###  1.4.1 - 15-11-2025 
+* Fix: Currency bug on forms set before 1.4.0
+* Tested Elementor PRO up to 3.33.1
+
 ###  1.4.0 - 10-11-2025 
 * Security: Add comprehensive input sanitization for all form data and settings
 * Security: Add validation for API key format (test/live prefix validation)

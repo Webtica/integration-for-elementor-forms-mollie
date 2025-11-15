@@ -347,8 +347,8 @@ class Mollie_Integration_Action_After_Submit extends \ElementorPro\Modules\Forms
 
 		// Sanitize payment settings
 		$dynamicprice = isset( $settings['mollie_payment_dynamic_pricing_switcher'] ) ? $settings['mollie_payment_dynamic_pricing_switcher'] : 'no';
-		$currency = sanitize_text_field( $settings['mollie_payment_currency'] );
-		$description = sanitize_text_field( $settings['mollie_payment_description'] );
+		$currency = isset( $settings['mollie_payment_currency'] ) ? sanitize_text_field( $settings['mollie_payment_currency'] ) : 'EUR';
+		$description = isset( $settings['mollie_payment_description'] ) ? sanitize_text_field( $settings['mollie_payment_description'] ) : '';
 
 		// Validate currency (ISO 4217 currency codes supported by Mollie)
 		$allowed_currencies = array(

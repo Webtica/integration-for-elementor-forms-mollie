@@ -4,7 +4,7 @@ Tags: mollie, elementor, forms, integration, payments
 Requires at least: 5.0
 Tested up to: 6.8.3
 Requires PHP: 7.0
-Stable tag: 1.4.0
+Stable tag: 1.4.1
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -51,6 +51,10 @@ Because this integration works with the Form Widget, which is a Elementor Pro un
 Yes, all the other form widget integrations will be available.
 
 == Changelog ==
+
+= 1.4.1 - 2025-11-15 =
+* Fix: Currency bug on forms set before 1.4.0
+* Tested Elementor PRO up to 3.33.1
 
 = 1.4.0 - 2025-11-10 =
 * Security: Add comprehensive input sanitization for all form data and settings
